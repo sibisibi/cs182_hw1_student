@@ -66,7 +66,8 @@ def sgd_momentum(w, dw, config=None):
     # the updated value in the next_w variable. You should also use and update  #
     # the velocity v.                                                           #
     #############################################################################
-    pass
+    v = dw + config['momentum'] * v
+    next_w = w - config['learning_rate'] * v
     #############################################################################
     #                             END OF YOUR CODE                              #
     #############################################################################
@@ -99,7 +100,13 @@ def rmsprop(x, dx, config=None):
     # in the next_x variable. Don't forget to update cache value stored in      #
     # config['cache'] and to use the epsilon scalar to avoid dividing by zero.  #
     #############################################################################
-    pass
+    s = config['cache']
+    beta = config['decay_rate']
+
+    s = beta * s + (1 - beta) * (dx ** 2)
+    next_x = x - config['learning_rate'] * dx / (np.sqrt(s) + config['epsilon'])
+
+    config['cache'] = s
     #############################################################################
     #                             END OF YOUR CODE                              #
     #############################################################################
@@ -136,7 +143,21 @@ def adam(x, dx, config=None):
     # the next_x variable. Don't forget to update the m, v, and t variables     #
     # stored in config and to use the epsilon scalar to avoid dividing by zero. #
     #############################################################################
-    pass
+    beta1 = config['beta1']
+    beta2 = config['beta2']
+    t = config['t']
+
+    m = (1 - beta1) * dx + beta1 * config['m']
+    v = (1 - beta2) * (dx ** 2) + beta2 * config['v']
+    t += 1
+    
+    m_hat = m / (1 - beta1 ** t)
+    v_hat = v / (1 - beta2 ** t)
+    next_x = x - config['learning_rate'] * m_hat / (np.sqrt(v_hat) + config['epsilon'])
+
+    config['m'] = m
+    config['v'] = v
+    config['t'] = t
     #############################################################################
     #                             END OF YOUR CODE                              #
     #############################################################################

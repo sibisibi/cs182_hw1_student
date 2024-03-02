@@ -60,7 +60,7 @@ def affine_relu_bn_backward(dout, cache):
 
 def affine_relu_do_forward(x, w, b, do_params):
     """
-    Convenience layer that perorms an affine transform followed by a ReLU
+    Convenience layer that performs an affine transform followed by a ReLU
 
     Inputs:
     - x: Input to the affine layer
@@ -88,7 +88,7 @@ def affine_relu_do_backward(dout, cache):
 
 def affine_relu_bn_do_forward(x, w, b, gamma, beta, bn_params, do_params):
     """
-    Convenience layer that perorms an affine transform followed by a ReLU
+    Convenience layer that performs an affine transform followed by a ReLU
 
     Inputs:
     - x: Input to the affine layer
